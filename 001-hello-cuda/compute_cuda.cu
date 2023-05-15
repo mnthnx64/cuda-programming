@@ -12,6 +12,14 @@
 
 // Kernel function to add two vectors
 __global__ void add(int *a, int *b, int *c, int n) {
+    /*
+    * This function will be running on seperate threads and blocks.
+    * We have to get the index of the thread to access the elements of the vectors.
+    *
+    * The index of the thread is calculated as follows:
+    * index = threadId + blockId * blockDim
+    * The index is used to access the elements of the vectors.
+    */
     int index = threadIdx.x + blockIdx.x * blockDim.x;
     if (index < n) {
         c[index] = a[index] + b[index];
